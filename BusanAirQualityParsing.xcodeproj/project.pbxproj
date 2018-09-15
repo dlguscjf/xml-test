@@ -12,6 +12,7 @@
 		054E8332214D120000A3C76E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 054E8330214D120000A3C76E /* Main.storyboard */; };
 		054E8334214D120100A3C76E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 054E8333214D120100A3C76E /* Assets.xcassets */; };
 		054E8337214D120100A3C76E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 054E8335214D120100A3C76E /* LaunchScreen.storyboard */; };
+		054E833F214D125F00A3C76E /* AirQualityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054E833E214D125F00A3C76E /* AirQualityData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		054E8333214D120100A3C76E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		054E8336214D120100A3C76E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		054E8338214D120100A3C76E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		054E833E214D125F00A3C76E /* AirQualityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				054E8333214D120100A3C76E /* Assets.xcassets */,
 				054E8335214D120100A3C76E /* LaunchScreen.storyboard */,
 				054E8338214D120100A3C76E /* Info.plist */,
+				054E833E214D125F00A3C76E /* AirQualityData.swift */,
 			);
 			path = BusanAirQualityParsing;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054E833F214D125F00A3C76E /* AirQualityData.swift in Sources */,
 				054E832F214D120000A3C76E /* ViewController.swift in Sources */,
 				054E832D214D120000A3C76E /* AppDelegate.swift in Sources */,
 			);
