@@ -16,9 +16,52 @@ class ViewController: UIViewController, XMLParserDelegate {
     var myPm25 = ""
     var mySite = ""
     var currentElement = ""
+    var currentTime = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Timer 호출
+        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(ViewController.myParse), userInfo: nil, repeats: true)
+        
+        
+//        // Do any additional setup after loading the view, typically from a nib.
+//        let key = "aT2qqrDmCzPVVXR6EFs6I50LZTIvvDrlvDKekAv9ltv9dbO%2F8i8JBz2wsrkpr9yrPEODkcXYzAqAEX1m%2Fl4nHQ%3D%3D"
+//
+//        let strURL = "http://opendata.busan.go.kr/openapi/service/AirQualityInfoService/getAirQualityInfoClassifiedByStation?ServiceKey=\(key)&Date_hour=2018091520&numOfRows=21"
+//
+//        let url = URL(string: strURL)
+//        print(url!)
+//
+//        if let url = URL(string: strURL) {
+//            if let parser = XMLParser(contentsOf: url) {
+//                parser.delegate = self
+//
+//                if (parser.parse()) {
+//                    print("parsing success")
+////                    print(items[0].dPm10)
+//                    print("PM 10 in Busan")
+//
+//                    let date: Date = Date()
+//                    let dayTimePeriodFormatter = DateFormatter()
+//                    dayTimePeriodFormatter.dateFormat = "YYYY/MM/dd HH시"
+//                    currentTime = dayTimePeriodFormatter.string(from: date)
+//                    print(currentTime)
+//
+//                    for i in 0..<items.count {
+//                        print("\(items[i].dSite) : \(items[i].dPm10)")
+//                    }
+//
+//                } else {
+//                    print("parsing fail")
+//                }
+//            } else {
+//                print("url error")
+//            }
+//        }
+    }
+    
+    @objc func myParse() {
         // Do any additional setup after loading the view, typically from a nib.
         let key = "aT2qqrDmCzPVVXR6EFs6I50LZTIvvDrlvDKekAv9ltv9dbO%2F8i8JBz2wsrkpr9yrPEODkcXYzAqAEX1m%2Fl4nHQ%3D%3D"
         
@@ -33,8 +76,15 @@ class ViewController: UIViewController, XMLParserDelegate {
                 
                 if (parser.parse()) {
                     print("parsing success")
-//                    print(items[0].dPm10)
+                    //                    print(items[0].dPm10)
                     print("PM 10 in Busan")
+                    
+                    let date: Date = Date()
+                    let dayTimePeriodFormatter = DateFormatter()
+                    dayTimePeriodFormatter.dateFormat = "YYYY/MM/dd HH시"
+                    currentTime = dayTimePeriodFormatter.string(from: date)
+                    print(currentTime)
+                    
                     for i in 0..<items.count {
                         print("\(items[i].dSite) : \(items[i].dPm10)")
                     }
@@ -46,7 +96,6 @@ class ViewController: UIViewController, XMLParserDelegate {
                 print("url error")
             }
         }
-        
     }
     
     // XML Parser Delegate
