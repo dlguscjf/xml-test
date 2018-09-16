@@ -11,7 +11,7 @@ import Foundation
 class AirQuailtyData {
     var dPm10 = ""
     var dPm25 = ""
-//    var dPm10Cai = ""
-//    var dPm25Cai = ""
+    var dPm10Cai = ""
+    var dPm25Cai = ""
     var dSite = ""
 }
