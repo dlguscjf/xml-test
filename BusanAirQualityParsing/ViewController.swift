@@ -1,4 +1,4 @@
-//
+//  Data Class 사용 
 //  ViewController.swift
 //  BusanAirQualityParsing
 //
@@ -9,7 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController, XMLParserDelegate {
-    
     var items = [AirQuailtyData]()
     var item = AirQuailtyData()
     var myPm10 = ""
@@ -42,7 +41,6 @@ class ViewController: UIViewController, XMLParserDelegate {
                 
                 if (parser.parse()) {
                     print("parsing success")
-                    //                    print(items[0].dPm10)
                     print("PM 10 in Busan")
                     
                     let date: Date = Date()
@@ -66,7 +64,6 @@ class ViewController: UIViewController, XMLParserDelegate {
                     
                     items = [AirQuailtyData]()
                     
-                    
                 } else {
                     print("parsing fail")
                 }
@@ -79,14 +76,6 @@ class ViewController: UIViewController, XMLParserDelegate {
     // XML Parser Delegate
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-//        switch currentElement {
-//            case "pm10" : myPm10 = ""
-//            case "pm25" : myPm25 = ""
-//            case "pm10Cai" : myPm10Cai = ""
-//            case "pm25Cai" : myPm25Cai = ""
-//            case "site" : mySite = ""
-//            default : break
-//        }
     }
 
     func parser(_ parser: XMLParser, foundCharacters string: String) {
