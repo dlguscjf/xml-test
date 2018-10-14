@@ -1,4 +1,4 @@
-//  Data Class 사용 
+//  Data Class 사용
 //  ViewController.swift
 //  BusanAirQualityParsing
 //
@@ -32,9 +32,6 @@ class ViewController: UIViewController, XMLParserDelegate {
         
         let strURL = "http://opendata.busan.go.kr/openapi/service/AirQualityInfoService/getAirQualityInfoClassifiedByStation?ServiceKey=\(key)&Date_hour=2018091520&numOfRows=21"
         
-        let url = URL(string: strURL)
-        print(url!)
-        
         if let url = URL(string: strURL) {
             if let parser = XMLParser(contentsOf: url) {
                 parser.delegate = self
@@ -48,7 +45,7 @@ class ViewController: UIViewController, XMLParserDelegate {
                     dayTimePeriodFormatter.dateFormat = "YYYY/MM/dd HH시"
                     currentTime = dayTimePeriodFormatter.string(from: date)
                     print(currentTime)
-                    
+                    print("PM10")
                     for i in 0..<items.count {
                         switch items[i].dPm10Cai {
                             case "1" : items[i].dPm10Cai = "좋음"
@@ -56,13 +53,26 @@ class ViewController: UIViewController, XMLParserDelegate {
                             case "3" : items[i].dPm10Cai = "좋음"
                             case "4" : items[i].dPm10Cai = "매우좋음"
                             default : break
-                            
                         }
                         
                         print("\(items[i].dSite) : \(items[i].dPm10)  \(items[i].dPm10Cai)")
                     }
                     
-                    items = [AirQuailtyData]()
+                    print("-----------------------")
+                    print("PM2.5")
+                    for i in 0..<items.count {
+                        switch items[i].dPm25Cai {
+                        case "1" : items[i].dPm25Cai = "좋음"
+                        case "2" : items[i].dPm25Cai = "보통"
+                        case "3" : items[i].dPm25Cai = "좋음"
+                        case "4" : items[i].dPm25Cai = "매우좋음"
+                        default : break
+                        }
+                        
+                        print("\(items[i].dSite) : \(items[i].dPm25)  \(items[i].dPm25Cai)")
+                    }
+                    
+                    print("-----------------------")
                     
                 } else {
                     print("parsing fail")
