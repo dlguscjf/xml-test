@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, XMLParserDelegate {
+class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, UITableViewDataSource {
+    
     var items = [AirQuailtyData]()
     var item = AirQuailtyData()
     var myPm10 = ""
@@ -19,8 +20,12 @@ class ViewController: UIViewController, XMLParserDelegate {
     var currentElement = ""
     var currentTime = ""
     
+    @IBOutlet weak var myTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        myTableView.delegate = self
+        myTableView.dataSource = self
         
         // Timer 호출
         Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(ViewController.myParse), userInfo: nil, repeats: true)
@@ -28,7 +33,7 @@ class ViewController: UIViewController, XMLParserDelegate {
     
     @objc func myParse() {
         // Do any additional setup after loading the view, typically from a nib.
-        let key = "aT2qqrDmCzPVVXR6EFs6I50LZTIvvDrlvDKekAv9ltv9dbO%2F8i8JBz2wsrkpr9yrPEODkcXYzAqAEX1m%2Fl4nHQ%3D%3D"
+        let key = "공공데이터 Key"
         
         let strURL = "http://opendata.busan.go.kr/openapi/service/AirQualityInfoService/getAirQualityInfoClassifiedByStation?ServiceKey=\(key)&numOfRows=21"
         
@@ -114,6 +119,26 @@ class ViewController: UIViewController, XMLParserDelegate {
             myItem.dSite = mySite
             items.append(myItem)
         }
+    }
+    
+    // UITableView Delegate Methods 호출
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let myCell = myTableView.dequeueReusableCell(withIdentifier: "RE", for: indexPath)
+        let myItem = items[indexPath.row]
+        
+        let mySite = myCell.viewWithTag(1) as! UILabel
+        let myPM10 = myCell.viewWithTag(2) as! UILabel
+        let myPM10Cai = myCell.viewWithTag(3) as! UILabel
+        
+        mySite.text = myItem.dSite
+        myPM10.text = myItem.dPm10
+        myPM10Cai.text = myItem.dPm10Cai
+        
+        return myCell
     }
 }
 
