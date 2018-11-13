@@ -40,9 +40,9 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
         
         print("in Timer!")
         // Do any additional setup after loading the view, typically from a nib.
-        let key = "키입력"
+        let key = "E%2FeSbG29KCzlKt24hzLXa%2FztaQQR9XfK0364bMCEN569c0u2qJV4wUYDsaf4cz6XTYesGAj%2BBm5fW1CFwoD3pA%3D%3D"
 
-        let strURL = "http://opendata.busan.go.kr/openapi/service/AirQualityInfoService/getAirQualityInfoClassifiedByStation?ServiceKey=\(key)&numOfRows=21"
+        let strURL = "http://opendata.busan.go.kr/openapi/service/EnvironmentalRadiationInfoService/getEnvironmentalRadiationInfoDetail?ServiceKey=\(key)&numOfRows=10"
         
         if let url = URL(string: strURL) {
             if let parser = XMLParser(contentsOf: url) {
@@ -56,37 +56,21 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "YYYY/MM/dd HH시"
                     currentTime = dayTimePeriodFormatter.string(from: date)
-                    print(currentTime)
-                    print("PM10")
-                    for i in 0..<items.count {
-                        switch items[i].dPm10Cai {
-                            case "1" : items[i].dPm10Cai = "좋은"
-                            case "2" : items[i].dPm10Cai = "보통" + "  😟"
-                            case "3" : items[i].dPm10Cai = "나쁨" + "  😡"
-                            case "4" : items[i].dPm10Cai = "매우나쁨"
-                            default : break
-                        }
-                        
-                        print("\(items[i].dSite) : \(items[i].dPm10)  \(items[i].dPm10Cai)")
-                    }
-                    print("-----------------------")
-                    print("PM2.5")
-                    for i in 0..<items.count {
-                        switch items[i].dPm25Cai {
-                        case "1" : items[i].dPm25Cai = "좋은"
-                        case "2" : items[i].dPm25Cai = "보통"
-                        case "3" : items[i].dPm25Cai = "나쁨"
-                        case "4" : items[i].dPm25Cai = "매우나쁨"
-                        default : break
-                        }
-                        
-                        print("\(items[i].dSite) : \(items[i].dPm25)  \(items[i].dPm25Cai)")
-                    }
                     
-                    print("-----------------------")
-                    
+                    for i in 0..<items.count {
+//                        switch items[i].dPm10Cai {
+//                            case "1" : items[i].dPm10Cai = "좋은"
+//                            case "2" : items[i].dPm10Cai = "보통" + "  😟"
+//                            case "3" : items[i].dPm10Cai = "나쁨" + "  😡"
+//                            case "4" : items[i].dPm10Cai = "매우나쁨"
+//                            default : break
+//                        }
+                        print("a")
+                        print("\(items[i].dlat) : \(items[i].dlng)  \(items[i].ddata) \(items[i].dlocNm) \(items[i].dcheckTime)")
+                    }
+                   
                     // 1시간 간격으로 공공데이터를 호출, 파싱, 테이블뷰에 데이터 reload()
-                    myTableView.reloadData()
+                 
                     
                 } else {
                     print("parsing fail")
@@ -103,17 +87,17 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myCell = myTableView.dequeueReusableCell(withIdentifier: "RE", for: indexPath)
-        let myItem = items[indexPath.row]
-        
-        let mySite = myCell.viewWithTag(1) as! UILabel
-        let myPM10 = myCell.viewWithTag(2) as! UILabel
-        let myPM10Cai = myCell.viewWithTag(3) as! UILabel
-        
-        mySite.text = myItem.dSite
-        myPM10.text = myItem.dPm10 + " ug/m2"
-        myPM10Cai.text = myItem.dPm10Cai
-        
+          let myCell = myTableView.dequeueReusableCell(withIdentifier: "RE", for: indexPath)
+//        let myItem = items[indexPath.row]
+//
+//        let mySite = myCell.viewWithTag(1) as! UILabel
+//        let myPM10 = myCell.viewWithTag(2) as! UILabel
+//        let myPM10Cai = myCell.viewWithTag(3) as! UILabel
+//
+//        mySite.text = myItem.dSite
+//        myPM10.text = myItem.dPm10 + " ug/m2"
+//        myPM10Cai.text = myItem.dPm10Cai
+//
         return myCell
     }
     
@@ -139,11 +123,11 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             let myItem = AirQuailtyData()
-            myItem.dPm10 = myPm10
-            myItem.dPm25 = myPm25
-            myItem.dPm10Cai = myPm10Cai
-            myItem.dPm25Cai = myPm25Cai
-            myItem.dSite = mySite
+            myItem.dcheckTime = myPm10
+            myItem.ddata = myPm25
+            myItem.dlat = myPm10Cai
+            myItem.dlng = myPm25Cai
+            myItem.dlocNm = mySite
             items.append(myItem)
         }
     }
